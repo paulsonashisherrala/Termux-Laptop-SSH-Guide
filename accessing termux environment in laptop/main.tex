@@ -1,0 +1,128 @@
+\documentclass[conference]{IEEEtran}
+\usepackage{amsmath}
+\usepackage{verbatim}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{color}
+
+\title{\textbf{Comprehensive Guide to SSH Access: Termux and Laptop/PC Integration}}
+\author{\IEEEauthorblockN{Errala Paulsonashish}
+\IEEEauthorblockA{Email: paulsonashisherrala24@gmail.com}}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+This guide provides step-by-step instructions for setting up SSH connections between a Termux environment on an Android device and a laptop or PC. It covers both accessing Termux remotely from a laptop and using Termux to access a laptop, along with troubleshooting and security considerations for seamless integration.
+\end{abstract}
+
+\section{Introduction}
+SSH (Secure Shell) enables secure communication between devices, enhancing productivity and flexibility in mobile computing. This guide explains how to set up bidirectional SSH access: connecting to Termux from a laptop and accessing a laptop from Termux. These setups allow you to leverage the strengths of both devices efficiently.
+
+\section{Prerequisites}
+Ensure the following requirements are met:
+\begin{itemize}[leftmargin=*]
+    \item Android device with Termux installed.
+    \item Laptop or PC with an SSH client (e.g., OpenSSH, PuTTY).
+    \item Stable Wi-Fi connection for both devices.
+    \item Basic familiarity with command-line interfaces.
+\end{itemize}
+
+\section{Part 1: Connecting to Termux from a Laptop/PC}
+\subsection{Step 1: Install and Start OpenSSH on Termux}
+\begin{itemize}[leftmargin=*]
+    \item Update Termux packages and install OpenSSH:
+    \begin{verbatim}
+    pkg update && pkg install openssh
+    \end{verbatim}
+    \item Start the SSH server:
+    \begin{verbatim}
+    sshd
+    \end{verbatim}
+\end{itemize}
+
+\subsection{Step 2: Set a Password for Termux}
+Set a password for SSH authentication:
+\begin{verbatim}
+passwd
+\end{verbatim}
+
+\subsection{Step 3: Find the IP Address and Username}
+Retrieve your Android device's IP address:
+\begin{verbatim}
+ifconfig
+\end{verbatim}
+Look under the \texttt{wlan0} interface for the \texttt{inet} address (e.g., \texttt{192.168.1.5}).  
+Find your Termux username using:
+\begin{verbatim}
+whoami
+\end{verbatim}
+
+\subsection{Step 4: Connect to Termux from Laptop/PC}
+Use the SSH command from your laptop/PC:
+\begin{verbatim}
+ssh -p 8022 your_username@your_phone_ip
+\end{verbatim}
+Example:  
+\begin{verbatim}
+ssh -p 8022 u0_a123@192.168.1.5
+\end{verbatim}
+Ensure both devices are connected to the same Wi-Fi network.
+
+\section{Part 2: Accessing a Laptop/PC from Termux}
+\subsection{Step 1: Set Up SSH Server on Laptop/PC}
+Ensure the SSH server is installed and running on your laptop/PC:
+\begin{itemize}[leftmargin=*]
+    \item Linux: Install OpenSSH (\texttt{sudo apt install openssh-server}).
+    \item Windows: Enable OpenSSH Server through Windows Features or install PuTTY.
+\end{itemize}
+
+\subsection{Step 2: Find Laptop/PC IP Address}
+Determine the laptop/PC IP address (e.g., \texttt{192.168.1.10}):
+\begin{itemize}[leftmargin=*]
+    \item Linux: Use \texttt{ifconfig} or \texttt{ip addr}.
+    \item Windows: Use \texttt{ipconfig}.
+\end{itemize}
+
+\subsection{Step 3: Connect from Termux to Laptop/PC}
+Run the following command in Termux:
+\begin{verbatim}
+ssh your_laptop_username@your_laptop_ip
+\end{verbatim}
+Example:  
+\begin{verbatim}
+ssh john@192.168.1.10
+\end{verbatim}
+
+\section{Security Best Practices}
+\begin{itemize}[leftmargin=*]
+    \item Use strong passwords or configure SSH key-based authentication.
+    \item Regularly update Termux and laptop/PC software to patch vulnerabilities:
+    \begin{verbatim}
+    pkg update && pkg upgrade
+    \end{verbatim}
+    \item Avoid public Wi-Fi networks for SSH connections unless using a VPN.
+\end{itemize}
+
+\section{Troubleshooting}
+If connection issues arise:
+\begin{itemize}[leftmargin=*]
+    \item Verify the SSH server is running (\texttt{sshd} on Termux or SSH service on laptop).
+    \item Confirm the IP addresses and usernames are correct.
+    \item Check firewall settings or battery optimization settings interfering with Termux.
+    \item Ensure both devices are on the same Wi-Fi network.
+\end{itemize}
+
+\section{Conclusion}
+Setting up bidirectional SSH access between Termux and a laptop/PC enables efficient workflows and flexibility. By following this guide, you can securely connect and manage your devices, enhancing your mobile computing capabilities.
+
+\section{References}
+\begin{itemize}[leftmargin=*]
+    \item Termux Documentation: \url{https://wiki.termux.com/wiki/Main_Page}
+    \item OpenSSH Documentation: \url{https://www.openssh.com/manual.html}
+\end{itemize}
+
+\end{document}
